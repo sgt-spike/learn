@@ -1,0 +1,38 @@
+@import './resets';
+@import './variables';
+@import './functions';
+@import './mixins';
+body {
+    background: $primary-color;
+    color: $text-color;
+}
+
+
+/*This is the style for the Index page*/
+
+.main {
+    @include flexCenter(row);
+    width: 80%- 40%;
+    margin: 0 auto;
+    //  "&" means being under a parent. Wrapping the "&" with "#{}" ensures the parent is included 
+    //  
+    #{&}_p1 {
+        font-weight: weight(bold);
+        &:hover {
+            color: pink;
+        }
+    }
+    #{&}_p2 {
+        @extend .main_p1;
+        &:hover {
+            color: $accent-color;
+        }
+    }
+    @include mobile {
+        flex-direction: column;
+    }
+}
+
+.light {
+    @include theme($light-theme: false);
+}

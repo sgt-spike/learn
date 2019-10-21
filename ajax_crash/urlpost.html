@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>AJAX Communication Example</title>
+</head>
+<body style="text-align: center">
+   <h1>Loading a web page into a div</h1>
+   <div id="info">This sentence will be replaced</div>
+   <script>
+      params = 'url=news.com';
+
+      var request = new XMLHttpRequest();
+
+      request.open('POST', 'urlpost.php', true);
+
+      request.setRequestHeader('Content-type', 'application/x-www-form-urlencodeed');
+
+      request.setRequestHeader('Content-length', 'params.length');
+
+      request.setRequestHeader('Connection', 'close')
+   </script>
+</body>
+</html>
