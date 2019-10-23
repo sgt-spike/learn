@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Cost Calculator</title>
+</head>
+
+<body>
+    <div>
+        <p>Fill out this form to calculate the total cost:</p>
+    </div>
+    <form action="php/handle_calc.php" method="post">
+        <p>Price: <input type="text" name="price" id="price" size="5"></p>
+        <p>Quantity: <input type="number" name="quantity" id="quantity" size="5" min="1" value="1"></p>
+        <p>Discount: <input type="text" name="discount" id="discount" size="5"></p>
+        <p>Tax: <input type="text" name="tax" id="tax" size="5"> (%)</p>
+        <p>Shipping Method: <select name="shipping" id="shipping">
+         <option value="5.00">Slow and Steady</option>
+         <option value="8.95">Put a move on it</option>
+         <option value="19.36">I need it yesterday!</option>
+      </select></p>
+        <p>Number of payments to make:
+            <input type="number" name="payments" id="payments" size="5" min="1" value="1">
+        </p>
+        <input type="submit" value="Calculate!" name="submit">
+    </form>
+</body>
+
+</html>
