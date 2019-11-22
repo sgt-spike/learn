@@ -1,59 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php //Script 8.9
+   /* This page lets people register for ths site (in theory). */
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registration Form</title>
-</head>
+   // Set the page title and include the header file:
+   define('TITLE', 'Register');
+   include 'templates/header.html';
 
-<body>
-    <!-- Script 6.1 - registration form -->
-    <div>
-        <p>Please complete this form to register:</p>
-        <form action="php/handle_reg.php" method="post">
-            <p>Email Address: <input type="email" name="email" id="email" size="30"></p>
-            <p>Password: <input type="password" name="password" id="password" size="20"></p>
-            <p>Confirm Password: <input type="password" name="confirm" id="confirm" size="20"></p>
-            <p>Date of Birth:
-                <select name="month" id="month">
-                  <option value="">Month</option>
-                  <option value="1">January</option>
-                  <option value="2">February</option>
-                  <option value="3">March</option>
-                  <option value="4">April</option>
-                  <option value="5">May</option>
-                  <option value="6">June</option>
-                  <option value="7">July</option>
-                  <option value="8">August</option>
-                  <option value="9">September</option>
-                  <option value="10">October</option>
-                  <option value="11">November</option>
-                  <option value="12">December</option>
-               </select>
-                <select name="day" id="day">
-                  <option value="">Day</option>
-                  <?php 
-                     for ($i = 1; $i <= 31; $i++) {
-                        print "<option value=\"$i\">$i</option>\n";
-                     }
-                  ?>
-               </select>
-            </p>
-            <p>Favorite Color:
-                <select name="color" id="color">
-               <option value="">Pick One</option>
-               <option value="red">Red</option>
-               <option value="yellow">Yellow</option>
-               <option value="green">Green</option>
-               <option value="blue">Blue</option>
-            </select>
-            </p>
-            <p><input type="checkbox" name="terms" value="Yes" id="terms">I agree to the terms (whatever they may be).</p>
-            <input type="submit" value="Register" name="submit">
-        </form>
-    </div>
-</body>
+   // Print some introductory text:
+   print '<h2>Registration Form</h2>
+         <p>Register so that you can take advantage of certain features like this, that, and the other thing</p>';
 
-</html>
+   // Check if the form has been submitted:
+   if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+
+      $problem = false;
+      print $problem;
+      // Check for each value
+      if ( empty($_POST['first_name']) ) {
+         $problem = true;
+         print '<p class="text--error">Please enter your first name!</p>';
+      }
+
+      if ( empty($_POST['last_name']) ) {
+         $problem = true;
+         print '<p class="text--error">Please enter your last name!</p>';
+      }
+
+      if ( empty($_POST['email']) ) {
+         $problem = true;
+         print '<p class="text--error">Please enter your email!</p>';
+      }
+
+      if ( empty($_POST['password1']) ) {
+         $problem = true;
+         print '<p class="text--error">Please enter your password!</p>';
+      }
+
+      if ( $_POST['password1'] != $_POST['password2'] ) {
+         $problem = true;
+         print '<p class="text--error">Your passwords do not match!</p>';
+      }
+
+      if (!$problem) {
+         
+         //Print a Message:
+         print '<p class="text--sucess">You are now registered!<br>Okay, you are not really registered but...</p>';
+
+         //Send Email Response
+         $body = "Thank you, {$_POST['first_name']}, for registering with the J.D. Salingeer fan club!'.";
+         mail($_POST['email'], 'Registration Confirmation', $body, 'form: admin@example.com');
+
+         //Clear posted values
+         $_POST = [];
+      } else {
+         print '<p class="text--error">Please try again</p>';
+      }
+   }
+?>
+
+<form action="register.php" method="post" class="form--inline">
+
+   <p><label for="first_name">First Name:</label><input type="text" name="first_name" id="first_name" size="20" value="<?php if (isset($_POST['first_name'])){print htmlspecialchars($_POST['first_name']);} ?>"></p>
+
+   <p><label for="last_name">Last Name:</label><input type="text" name="last_name" id="last_name" size="20" value="<?php if(isset($_POST['last_name'])) {print htmlspecialchars($_POST['last_name']);}?>"></p>
+
+   <p><label for="email">Email Address:</label><input type="email" name="email" id="email" size="20" value="<?php if(isset($_POST['email'])) {print htmlspecialchars($_POST['email']);}?>"></p>
+
+   <p><label for="password1">Password: </label><input type="password" name="password1" id="password1" size="20" value="<?php if(isset($_POST['password1'])) {print htmlspecialchars($_POST['password1']);} ?>"></p>
+
+   <p><label for="password2">Confirm Password:</label><input type="password" name="password2" id="password2" size="20" value="<?php if (isset($_POST['password2'])) { print htmlspecialchars($_POST['password2']);} ?>"></p>
+
+   <p><input type="submit" value="Register!" name="submit"class="button--pill"></p>
+</form>
+<?php include 'templates/footer.html'; ?>
