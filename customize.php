@@ -1,7 +1,7 @@
 <?php // Script 9.0 welcome.php 
    if (isset($_POST['font_size'], $_POST['font_color'])) {
-         setcookie('font_size', $_POST['font_size']);
-         setcookie('font_color', $_POST['font_color']);
+         setcookie('font_size', $_POST['font_size'], time()+10000000,'/','',0);
+         setcookie('font_color', $_POST['font_color'], time()+10000000,'/','',0);
 
          $msg = '<p>Your settings have been entered!  Now see them <a href="view_settings.php">in action</a>.</p>';
    }//end if statement

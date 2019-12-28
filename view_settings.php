@@ -8,13 +8,16 @@
    <style>
       body {
          <?php 
+            //If the cookie is set, set the font size based on the font_size index in $_COOKIE
             if (isset($_COOKIE['font_size'])) {
-               print "\t\tfont-size:" . htmlentities($_COOKIE['font_size']) . ";\n";
+               print "font-size: " . htmlentities($_COOKIE['font_size']) . ";\n";
             } else {
                print "\t\tfont-size: medium;";
             }
+
+            //If the cookie is set, set the font color based on the font_color index in $_COOKIE
             if (isset($_COOKIE['font_color'])) {
-               print "\t\tfont-color: #" . htmlentities($_COOKIE['font_color']) . ";\n";
+               print "\t\tcolor: #" . htmlentities($_COOKIE['font_color']) . ";\n";
             } else {
                print "\t\tfont-color: #000;";
             }
