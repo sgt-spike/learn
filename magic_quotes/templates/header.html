@@ -1,0 +1,30 @@
+<?php // script 13.3 - header.html
+   /* This is the header for all pages in the application */
+   //include the functions php file
+   include 'includes/functions.php';?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>
+        <?php // Print the title of each page
+            /*  */
+            if (defined('TITLE')) {
+               print TITLE;
+            } else {
+               print 'My Site of Quotes';
+            }
+            ?>
+    </title>
+</head>
+
+<body>
+    <div id="container">
+        <h1>My Site of Quotes</h1>
+        <br>
+        <!-- Begin Changeable Content -->

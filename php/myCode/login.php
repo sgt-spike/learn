@@ -10,8 +10,6 @@
    <h1>Login</h1>
    <?php //Script 11.8 - login.php
 
-      //uyVhcU5t68dbdHRr
-
       /* This script logs a user in by checking the stored values in a text file */
 
       //Identify the file to use:
