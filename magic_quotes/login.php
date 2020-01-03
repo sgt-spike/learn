@@ -7,16 +7,34 @@
    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //Handle the form
       if ( !empty($_POST['email']) && !empty($_POST['password']) ) {
-         if ( (strtolower($_POST['email']) == 'btchriss@gmail.com') && ($_POST['password'] == 'brad2030') ) {
-            // Create Cookie and Session
-            setcookie('Samuel', 'Clemens', time()+3600);
-            session_start();
-            $_SESSION['admin'] = true;
-            $_SESSION['name'] = 'Samuel';
-            $_SESSION['value'] = 'Clemens';
-            $loggedin = true;
-         } else {
-            $error = 'The submitted email and password do not match those on file!';
+         //Start database connection
+         include 'includes/connection.php';
+         //create varibles from $_POST
+         $email = htmlentities($_POST['email']);
+         $password = htmlentities($_POST['password']);
+
+         //Query database for user
+         $query = "SELECT first_name, email, password, user_type FROM users WHERE email = '$email'";
+
+         if ($result = mysqli_query($dbc, $query)) {
+            // If a record is returned log verify and login
+            //create variable array from returned record
+            $row = mysqli_fetch_array($result);
+
+            if ( ($row['email'] == $email) && (password_verify($password, $row['password'])) ) {
+               //create the session
+               $loggedin = true;
+               session_start();
+               $_SESSION['name'] = $row['first_name'];
+               $_SESSION['usertype'] = $row['user_type'];
+               $_SESSION['loggedin'] = true;
+            } else {
+               $error = 'The email and password combination does not match!  Please Try Again.';
+            }
+
+         } elseif (!$result = mysqli_query($dbc, $query)) {
+            //if no records are returned send error message
+            $error = 'The submitted email and password do not match those on file!  Try again or register for access';
          }
       } else {
          $error = 'Please make sure you enter both an email and a password!';
@@ -33,7 +51,7 @@
 
    // Indicate the user is logged in, or show the form:
    if ($loggedin) {
-      print '<p>You are now logged in!</p>';
+      echo "<p>Your log in is complete.</p>";
       header("refresh:2;url=https://learn.spikedevelopments.com/magic_quotes/index.php");
       exit();
    } else {
@@ -45,5 +63,6 @@
                <p><input type="submit" name="submit" value="Log In!"></p>
             </form>';
    }
+   mysqli_close($dbc);
    include 'templates/footer.html';
 ?>

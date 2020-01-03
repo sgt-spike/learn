@@ -10,6 +10,7 @@
    // Need to include the database connection file
    include 'includes/connection.php';
    
+ 
    // Define the query
    //Chnage the particulars depending upon values passed in the url
    if (isset($_GET['random'])) {
@@ -26,7 +27,7 @@
       // Retrieve the results
       $row = mysqli_fetch_array($result);
       // Print the record
-      print "<div><blockquote>{$row['quote']}</blockquote>- {$row['source']}";
+      print "<div><blockquote>{$row['quote']}<br><br>- {$row['source']}</blockquote>";
 
       //If this is a favorite
       if ($row['favorite'] == 1) {
@@ -47,7 +48,7 @@
    // Close the connection
    mysqli_close($dbc);
 
-   print '<p><a href="index.php">Latest</a> <=> <a href="index.php?random=true">Random</a> <=> <a href="index.php?favorite=true">Favorite</a> <=> <a href="view_quotes.php">View All</a> <=> <a href="login.php">Login</a> <=> <a href="logout.php">Logout</a></p>';
+   print '<p><a href="index.php">Latest</a> <=> <a href="index.php?random=true">Random</a> <=> <a href="index.php?favorite=true">Favorite</a> <=> <a href="view_quotes.php">View All</a> <=> <a href="login.php">Login</a> <=> <a href="logout.php">Logout</a> <=> <a href="register.php">Register</a></p>';
 
    // include the footer
    include 'templates/footer.html';

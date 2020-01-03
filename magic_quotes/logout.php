@@ -5,6 +5,9 @@
    if (isset($_COOKIE['Samuel'])) {
       setcookie('Samuel', FALSE, time()-300);
    }
+   session_start();
+   $_SESSION = [];
+   session_destroy();
 
    // Define the title of the page and include the header
    define('TITLE', 'Logout');
@@ -14,6 +17,6 @@
    
 
    include 'templates/footer.html';
-   header("refresh:5;url=https://learn.spikedevelopments.com/magic_quotes/index.php");
+   header("refresh:2;url=https://learn.spikedevelopments.com/magic_quotes/index.php");
    exit();
 ?>

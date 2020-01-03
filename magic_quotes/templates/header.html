@@ -1,7 +1,9 @@
 <?php // script 13.3 - header.html
    /* This is the header for all pages in the application */
    //include the functions php file
-   include 'includes/functions.php';?>
+   include 'includes/functions.php';
+   session_start();
+   ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,4 +29,7 @@
     <div id="container">
         <h1>My Site of Quotes</h1>
         <br>
+        <?php if($_SESSION['loggedin']){
+            echo "<p>Hello {$_SESSION['name']}</p>";}
+        ?>
         <!-- Begin Changeable Content -->

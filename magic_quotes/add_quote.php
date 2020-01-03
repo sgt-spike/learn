@@ -39,6 +39,7 @@
          if (mysqli_affected_rows($dbc) == 1) {
             // print a message
             print '<p>Your quotation has been stored</p>';
+            header("refresh:2;url=https://learn.spikedevelopments.com/magic_quotes/index.php");
          } else {
             print '<p class="error">Could not store the quote because: <br>' .mysqli_error($dbc) . '.</p><p>The query being run was: ' . $query . '</p>';
          }
@@ -46,15 +47,25 @@
          mysqli_close($dbc);
 
       } else {
-         print '<p class="error">Please enter a quotation and a source!</p>';
+         if (empty($_POST['quote'])) {
+            echo '<p class="error">Please provide a quotation.</p>';
+         }
+         if (empty($_POST['source'])) {
+            echo '<p class="error">Please prove a source for this quotation.</p>';
+         }
+         if ( isset($_POST['favorite']) ) {
+            $favorite = 1;
+         } else {
+            $favorite = 0;
+         }
       }
    }
 //Lease PHP and display form   
 ?>
 <form action="add_quote.php" method="post">
-   <p><label for="quote">Quote <textarea name="quote" id="quote" cols="30" rows="10"></textarea></label></p>
-   <p><label for="source">Source <input type="text" name="source" id="source"></label></p>
-   <p><label for="favorite">Is this a favorite? <input type="checkbox" name="favorite" id="favorite" value="yes"></label></p>
+   <p><label for="quote">Quote <textarea name="quote" id="quote" cols="30" rows="10"><?php if(isset($_POST['quote'])): echo $_POST['quote']; endif; ?></textarea></label></p>
+   <p><label for="source">Source <input type="text" name="source" id="source" value="<?php if(isset($_POST['source'])): echo $_POST['source']; endif; ?>"></label></p>
+   <p><label for="favorite">Is this a favorite? <input type="checkbox" name="favorite" id="favorite" value="yes" <?php if( isset($_POST['favorite']) ): echo 'checked="checked"'; else: echo ''; endif;?>></label></p>
    <p><input type="submit" name="submit" value="Add This Quote!"></input></p>
 </form>
 
