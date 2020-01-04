@@ -149,6 +149,10 @@ div.form_div {
     width: 275px;
 }
 
+div#email_quote.form_div {
+    width: 400px;
+}
+
 .form_inputs {
     float: right;
 }
